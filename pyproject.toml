@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "sistema-biblioteca"
+version = "0.1.0"
+description = "Projeto de estudos pensando no contexto de uma biblioteca e empréstimos de livros."
+authors = ["devid <nnick4673@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "sistema_biblioteca"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+django = "^4.1.4"
+pillow = "^9.3.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
