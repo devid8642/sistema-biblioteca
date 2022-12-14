@@ -6,6 +6,27 @@
 	
 	<div class="container">
 
+		{% if status == '1' %}
+			<br>
+			<div class="alert alert-danger" role="alert">
+  				Nome inválido
+			</div>
+		{% endif %}
+
+		{% if status == '2' %}
+			<br>
+			<div class="alert alert-danger" role="alert">
+  				Email inválido
+			</div>
+		{% endif %}
+
+		{% if status == '3' %}
+			<br>
+			<div class="alert alert-danger" role="alert">
+  				Senha inválida. Mínimo de 8 caracteres e não pode se parecer com o seu nome
+			</div>
+		{% endif %}
+
 		<div class="row">
 
 			<div class="col-md-3">
