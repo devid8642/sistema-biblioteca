@@ -9,7 +9,7 @@ packages = [{include = "sistema_biblioteca"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-django = "^4.1.4"
+django = {extras = ["argon2"], version = "^4.1.4"}
 pillow = "^9.3.0"
 django-environ = "^0.9.0"
 
