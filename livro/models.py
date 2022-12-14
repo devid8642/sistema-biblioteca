@@ -9,16 +9,21 @@ class Livros(models.Model):
 	data_cadastro = models.DateField(default = date.today())
 	emprestado = models.BooleanField(default = False)
 
-
 	def __str__(self):
 		return self.nome
 
+	class Meta:
+		verbose_name = 'Livro'
 
 class Emprestimos(models.Model):
 	nome_emprestado = models.CharField(max_length = 30)
 	livro_emprestado = models.ForeignKey(Livros, on_delete = models.CASCADE)
-	data_emprestimo = models.DateField()
-	data_devolucao = models.DateField(null = True)
+	data_emprestimo = models.DateField(default = date.today())
+	data_devolucao = models.DateField(blank = True, null = True)
+	duracao_emprestimo = models.CharField(max_length = 30, null = True)
 
 	def __str__(self):
 		return self.nome_emprestado
+
+	class Meta:
+		verbose_name = 'Emprestimo'
