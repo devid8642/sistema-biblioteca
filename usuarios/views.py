@@ -1,11 +1,21 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from django.contrib.auth.models import User
+from django.contrib.auth import login, logout, authenticate
 from django.core.validators import validate_email
 from django.contrib.auth.password_validation import validate_password
 
-def login(request):
-	return HttpResponse('login')
+def entrar(request):
+	if request.method == 'POST':
+		email = request.POST.get('email')
+		senha = request.POST.get('senha')
+		usuario = authenticate(request, username = email, password = senha)
+		if usuario is not None:
+			login(request, usuario)
+			return redirect('/usuario/login/?status=0')
+		else:
+			return redirect('/usuario/login/?status=3')
+	status = request.GET.get('status')
+	return render(request, 'login.html', {'status': status})
 
 def cadastro(request):
 	status = request.GET.get('status')
@@ -31,7 +41,11 @@ def cadastro(request):
 
 		if not usuario:
 			usuario = User.objects.create_user(username = email, first_name = nome, password = senha)
-		
-		return redirect('/usuario/login/')
+			return redirect('/usuario/login/?status=1')
+		return redirect('/usuario/login/?status=2')
 
 	return render(request, 'cadastro.html', {'status': status})
+
+def sair(request):
+	logout(request)
+	return redirect('/usuario/login/')
