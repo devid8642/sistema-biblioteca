@@ -11,7 +11,7 @@ def entrar(request):
 		usuario = authenticate(request, username = email, password = senha)
 		if usuario is not None:
 			login(request, usuario)
-			return redirect('/usuario/login/?status=0')
+			return redirect('/livro/')
 		else:
 			return redirect('/usuario/login/?status=3')
 	status = request.GET.get('status')

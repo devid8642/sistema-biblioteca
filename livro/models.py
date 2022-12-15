@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import date
 
 class Categorias(models.Model):
 	nome = models.CharField(max_length = 30)
@@ -29,10 +30,12 @@ class Emprestimos(models.Model):
 	livro_emprestado = models.ForeignKey(Livros, on_delete = models.CASCADE)
 	data_emprestimo = models.DateField(auto_now_add = True)
 	data_devolucao = models.DateField(blank = True, null = True)
-	duracao_emprestimo = models.CharField(max_length = 30, null = True)
 
 	def __str__(self):
 		return self.nome_emprestado
+
+	def duracao_emprestimo(self):
+		return (date.today() - self.data_emprestimo).days
 
 	class Meta:
 		verbose_name = 'Emprestimo'

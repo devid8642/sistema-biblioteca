@@ -5,11 +5,6 @@
 {% block 'conteudo' %}
 	
 	<div class="container">
-		{% if status == '0' %}
-			<div class="alert alert-primary" role="alert">
-				Login realizado com sucesso!
-			</div>
-		{% endif %}
 		{% if status == '1'%}
 			<br>
 			<div class="alert alert-primary" role="alert">
@@ -28,6 +23,13 @@
 			<br>
 			<div class="alert alert-danger" role="alert">
 				Email ou senha inválidos
+			</div>
+		{% endif %}
+
+		{% if status == '4' %}
+			<br>
+			<div class="alert alert-warning" role="alert">
+				Para acessar os livros entre no sistema!
 			</div>
 		{% endif %}
 
