@@ -27,8 +27,8 @@ class Livros(models.Model):
 		verbose_name = 'Livro'
 
 class Emprestimos(models.Model):
-	pessoa_emprestado = models.ForeignKey(User, on_delete = models.CASCADE)
-	livro_emprestado = models.ForeignKey(Livros, on_delete = models.CASCADE)
+	pessoa_emprestado = models.ForeignKey(User, on_delete = models.DO_NOTHING)
+	livro_emprestado = models.ForeignKey(Livros, on_delete = models.DO_NOTHING)
 	data_emprestimo = models.DateField(auto_now_add = True)
 	data_devolucao = models.DateField(blank = True, null = True)
 
