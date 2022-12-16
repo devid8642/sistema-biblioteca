@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block 'titulo' %}{{ livro }}{% endblock %}
+
+{% block 'conteudo' %}
+	
+	<div class="container">
+		<br>
+
+		{% if status == '1' %}
+			<div class="alert alert-warning" role="alert">
+  				O tamanho máximo do título do livro é 250 caracteres
+			</div>
+		{% elif status == '2' %}
+			<div class="alert alert-warning" role="alert">
+  				O tamanho máximo para o nome do autor e do co-autor é 250 caracteres
+			</div>
+		{% elif status == '3' %}
+			<div class="alert alert-warning" role="alert">
+				Cada livro precisa de pelo menos um nome e um autor
+			</div>
+		{% endif %}
+
+		<h1>Modifique os dados do livro</h1>
+		<hr>
+		<form action="{% url 'livro' livro.id %}" method="POST">
+			{% csrf_token %}
+			<div class="mb-3">
+				<label class="form-label">Livro</label>
+				<input type="text" name="nome_livro" value="{{ livro.nome }}" class="form-control" required>
+			</div>
+
+			<div class="mb-3">
+				<label class="form-label">Autor</label>
+				<input type="text" name="autor_livro" value="{{ livro.autor }}" class="form-control" required>
+			</div>
+
+			<div class="mb-3">
+				<label class="form-label">Co-autor</label>
+				{% if livro.co_autor == 'None' %}
+					<input type="text" name="co_autor" class="form-control">
+				{% else %}
+					<input type="text" name="co_autor" value="{{ livro.co_autor }}" class="form-control">
+				{% endif %}
+			</div>
+
+			<div class="mb-3">
+				<label class="form-label">Categoria</label>
+				<select class="form-select" aria-label="Default select example" name="categoria" required>
+					{% for cat in categorias %}
+						{% if cat == livro.categoria %}
+							<option selected>{{ cat }}</option>
+						{% else %}
+							<option>{{ cat }}</option>
+						{% endif %}
+					{% endfor %}
+				</select>
+			</div>
+			<button type="submit" class="btn btn-success">Salvar</button>
+		</form>
+		
+	</div>
+
+{% endblock %}

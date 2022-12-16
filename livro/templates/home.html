@@ -25,8 +25,7 @@
 								</svg>
 							{% endif %}
 			    		</p>
-			    		<a href="#" class="card-link">Card link</a>
-			    		<a href="#" class="card-link">Another link</a>
+			    		<a href="{% url 'livro' livro.id %}" class="btn btn-primary" target="_blank">Acessar livro</a>
 					</div>
 				</div>
 		{% endfor %}
