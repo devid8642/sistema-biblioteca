@@ -54,10 +54,12 @@ def livro(request, id):
 			return redirect('/')
 		status = request.GET.get('status')
 		categorias = Categorias.objects.all()
+		emprestimos = Emprestimos.objects.filter(livro_emprestado = livro)
 		context = {
 			'livro': livro,
 			'categorias': categorias,
-			'status': status
+			'status': status,
+			'emprestimos': emprestimos
 		}
 		return render(request, 'livro.html', context)
 	else:

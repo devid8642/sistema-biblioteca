@@ -37,7 +37,7 @@
 
 			<div class="mb-3">
 				<label class="form-label">Co-autor</label>
-				{% if livro.co_autor == 'None' %}
+				{% if livro.co_autor == None %}
 					<input type="text" name="co_autor" class="form-control">
 				{% else %}
 					<input type="text" name="co_autor" value="{{ livro.co_autor }}" class="form-control">
@@ -58,6 +58,32 @@
 			</div>
 			<button type="submit" class="btn btn-success">Salvar</button>
 		</form>
+		<br>
+		<h2>Histórico de empréstimos</h2>
+		<hr>
+
+		<table class="table">
+		  <thead>
+		    <tr>
+		      <th scope="col">Nome</th>
+		      <th scope="col">Data do empréstimo</th>
+		      <th scope="col">Data de devolução</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  	{% for emprestimo in emprestimos %}
+		  		<tr>
+		  			<th scope="row">{{ emprestimo.nome_emprestado }}</th>
+		  			<th>{{ emprestimo.data_emprestimo }}</th>
+		  			{% if emprestimo.data_devolucao == None %}
+		  				<th>-</th>
+		  			{% else %}
+		  				<th>{{ emprestimo.data_devolucao }}</th>
+		  			{% endif %}
+		  		</tr>
+		  	{% endfor %}
+		  </tbody>
+		</table>
 		
 	</div>
 
