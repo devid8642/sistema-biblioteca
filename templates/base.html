@@ -11,6 +11,9 @@
     <nav class="navbar navbar-dark navbar-expand-lg bg-dark">
       <div class="container-md">
         <a class="navbar-brand" href="#">Biblioteca Supimpa</a>
+        {% if usuario %}
+          <a href="{% url 'sair' %}" class="btn btn-danger">Sair</a>
+        {% endif %}
       </div>
     </nav>
 

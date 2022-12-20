@@ -13,7 +13,8 @@ def home(request):
 
 		context = {
 			'livros': livros,
-			'emprestimos': emprestimos
+			'emprestimos': emprestimos,
+			'usuario': True
 		}
 
 		return render(request, 'home.html', context)
@@ -61,7 +62,8 @@ def livro(request, id):
 			'livro': livro,
 			'categorias': categorias,
 			'status': status,
-			'emprestimos': emprestimos
+			'emprestimos': emprestimos,
+			'usuario': True
 		}
 		return render(request, 'livro.html', context)
 	else:
