@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load livro_extras %}
 
 {% block 'titulo' %}{{ livro }}{% endblock %}
 
@@ -68,6 +69,7 @@
 		      <th scope="col">Nome</th>
 		      <th scope="col">Data do empréstimo</th>
 		      <th scope="col">Data de devolução</th>
+		      <th scope="col">Duração do empréstimo</th>
 		    </tr>
 		  </thead>
 		  <tbody>
@@ -77,8 +79,10 @@
 		  			<th>{{ emprestimo.data_emprestimo }}</th>
 		  			{% if emprestimo.data_devolucao == None %}
 		  				<th>-</th>
+		  				<th>-</th>
 		  			{% else %}
 		  				<th>{{ emprestimo.data_devolucao }}</th>
+		  				<th>{{ emprestimo.data_devolucao|duracao_emprestimo:emprestimo.data_emprestimo }} dias</th>
 		  			{% endif %}
 		  		</tr>
 		  	{% endfor %}

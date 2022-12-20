@@ -9,9 +9,11 @@ def home(request):
 
 	if usuario.is_authenticated:
 		livros = Livros.objects.all()
+		emprestimos = Emprestimos.objects.all()
 
 		context = {
 			'livros': livros,
+			'emprestimos': emprestimos
 		}
 
 		return render(request, 'home.html', context)
