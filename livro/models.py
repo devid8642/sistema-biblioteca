@@ -31,12 +31,10 @@ class Emprestimos(models.Model):
 	livro_emprestado = models.ForeignKey(Livros, on_delete = models.DO_NOTHING)
 	data_emprestimo = models.DateField(auto_now_add = True)
 	data_devolucao = models.DateField(blank = True, null = True)
+	ativo = models.BooleanField(default = True)
 
 	def __str__(self):
 		return self.nome_emprestado
-
-	def duracao_emprestimo(self):
-		return (date.today() - self.data_emprestimo).days
 
 	class Meta:
 		verbose_name = 'Emprestimo'
