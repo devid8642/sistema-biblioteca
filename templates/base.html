@@ -12,7 +12,19 @@
       <div class="container-md">
         <a class="navbar-brand" href="#">Biblioteca Supimpa</a>
         {% if usuario %}
-          <a href="{% url 'sair' %}" class="btn btn-danger">Sair</a>
+          <div class="d-flex">
+            <div class="dropdown" style="margin-right: 10px;">
+              <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                +
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'cadastrar_livro' %}" target="_blank">Novo livro</a></li>
+                <li><a class="dropdown-item" href="#">Nova categoria</a></li>
+                <li><a class="dropdown-item" href="#">Gerenciar empréstimos</a></li>
+              </ul>
+            </div>
+            <a href="{% url 'sair' %}" class="btn btn-danger">Sair</a>
+          </div>
         {% endif %}
       </div>
     </nav>
