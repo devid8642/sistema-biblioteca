@@ -120,3 +120,13 @@ def cadastrar_categoria(request):
 		return redirect('/?status=4')
 
 	return redirect('/usuario/login/?status=4')
+
+def deletar_livro(request, id):
+	usuario = request.user
+
+	if usuario.is_authenticated:
+		livro = Livros.objects.get(id = id)
+		livro.delete()
+		return redirect('/?status=5')
+
+	return redirect('/usuario/login/?status=4')

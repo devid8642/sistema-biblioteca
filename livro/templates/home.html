@@ -27,6 +27,11 @@
 			<div class="alert alert-primary" role="alert">
 				Categoria cadastrada com sucesso
 			</div>
+		{% elif status == '5' %}
+			<br>
+			<div class="alert alert-primary" role="alert">
+				Livro deletado com sucesso
+			</div>
 		{% endif %}
 
 		{% for livro in livros %}

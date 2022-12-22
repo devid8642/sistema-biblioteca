@@ -5,5 +5,6 @@ urlpatterns = [
 	path('', views.home, name = 'home'),
 	path('livro/<int:id>/', views.livro, name = 'livro'),
 	path('cadastrar/livro/', views.cadastrar_livro, name = 'cadastrar_livro'),
-	path('cadastrar/categoria/', views.cadastrar_categoria, name = 'cadastrar_categoria')
+	path('cadastrar/categoria/', views.cadastrar_categoria, name = 'cadastrar_categoria'),
+	path('deletar/livro/<int:id>', views.deletar_livro, name = 'deletar_livro')
 ]
