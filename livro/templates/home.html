@@ -6,6 +6,14 @@
 {% block 'conteudo' %}
 	
 	<div class="container">
+
+		{% if status == '1' %}
+			<br>
+			<div class="alert alert-primary" role="alert">
+  				Livro cadastrado com sucesso
+			</div>
+		{% endif %}
+
 		{% for livro in livros %}
 				<br>
 				<div class="card" style="width: 18rem;">

@@ -68,3 +68,37 @@ def livro(request, id):
 		return render(request, 'livro.html', context)
 	else:
 		return redirect('/usuario/login/?status=4')
+
+def cadastrar_livro(request):
+	usuario = request.user
+
+	if usuario.is_authenticated:
+		if request.method == 'POST':
+			nome = request.POST.get('nome')
+			autor = request.POST.get('autor')
+			co_autor = request.POST.get('co_autor')
+			categoria = request.POST.get('categoria')
+
+			if len(nome) > 250:
+				return redirect('/cadastrar/livro/?status=1')
+			elif len(autor) > 250 or len(co_autor) > 250:
+				return redirect('/cadastrar/livro/?status=1')
+			elif len(nome) == 0 or len(autor) == 0:
+				return redirect('/cadastrar/livro/?status=2')
+
+			try:
+				categoria = Categorias.objects.get(id = categoria)
+			except:
+				return redirect('/cadastrar/livro/?status=3')
+
+			novo_livro = Livros(nome = nome, autor = autor, co_autor = co_autor, categoria = categoria)
+			novo_livro.save()
+			return redirect('/?status=1')
+		categorias = Categorias.objects.all()
+		context = {
+			'usuario': True,
+			'categorias': categorias
+		}
+		return render(request, 'cadastrar_livro.html', context)
+
+	return redirect('/usuario/login/?status=4')
