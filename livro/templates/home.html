@@ -12,6 +12,21 @@
 			<div class="alert alert-primary" role="alert">
   				Livro cadastrado com sucesso
 			</div>
+		{% elif status == '2' %}
+			<br>
+			<div class="alert alert-warning" role="alert">
+				O nome da categoria não pode conter mais de 250 caracteres
+			</div>
+		{% elif status == '3' %}
+			<br>
+			<div class="alert alert-warning" role="alert">
+				É obrigatório digitar o nome da categoria
+			</div>
+		{% elif status == '4' %}
+			<br>
+			<div class="alert alert-primary" role="alert">
+				Categoria cadastrada com sucesso
+			</div>
 		{% endif %}
 
 		{% for livro in livros %}

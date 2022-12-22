@@ -102,3 +102,21 @@ def cadastrar_livro(request):
 		return render(request, 'cadastrar_livro.html', context)
 
 	return redirect('/usuario/login/?status=4')
+
+def cadastrar_categoria(request):
+	usuario = request.user
+
+	if usuario.is_authenticated and request.method == 'POST':
+		nome = request.POST.get('nome')
+		descricao = request.POST.get('descricao')
+
+		if len(nome) > 250:
+			return redirect('/?status=2')
+		elif len(nome) == 0:
+			return redirect('/?status=3')
+
+		cat = Categorias(nome = nome, descricao = descricao)
+		cat.save()
+		return redirect('/?status=4')
+
+	return redirect('/usuario/login/?status=4')
