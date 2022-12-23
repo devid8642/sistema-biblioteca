@@ -18,13 +18,13 @@
                 +
               </button>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{% url 'cadastrar_livro' %}" target="_blank">Novo livro</a></li>
+                <li><a class="dropdown-item" href="{% url 'cadastrar_livro' %}">Novo livro</a></li>
                 <li>
                   <button type="button" class="btn btn-primary dropdown-item" data-bs-toggle="modal" data-bs-target="#novaCategoria">
                     Nova categoria
                   </button>
                 </li>
-                <li><a class="dropdown-item" href="#">Gerenciar empréstimos</a></li>
+                <li><a class="dropdown-item" href="{% url 'emprestimos' %}">Gerenciar empréstimos</a></li>
               </ul>
             </div>
             <a href="{% url 'sair' %}" class="btn btn-danger">Sair</a>

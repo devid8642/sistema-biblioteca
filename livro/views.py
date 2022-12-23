@@ -130,3 +130,65 @@ def deletar_livro(request, id):
 		return redirect('/?status=5')
 
 	return redirect('/usuario/login/?status=4')
+
+def emprestimos(request):
+	usuario = request.user
+
+	if usuario.is_authenticated:
+		emprestimos = Emprestimos.objects.filter(ativo = True)
+		livros = Livros.objects.filter(emprestado = False)
+
+		context = {
+			'usuario': True,
+			'emprestimos': emprestimos,
+			'livros': livros
+		}
+
+		return render(request, 'emprestimos.html', context)
+
+	return redirect('/usuario/login/?status=4')
+
+def cadastrar_emprestimo(request):
+	usuario = request.user
+
+	if usuario.is_authenticated and request.method == 'POST':
+		nome = request.POST.get('nome')
+		livro_id = request.POST.get('livro')
+
+		if len(nome) > 255:
+			return redirect('/emprestimos/?status=1')
+		elif len(nome) == 0:
+			return redirect('/emprestimos/?status=2')
+
+		try:
+			livro = Livros.objects.get(id = livro_id)
+		except:
+			return redirect('/emprestimos/?status=3')
+
+		empr = Emprestimos(nome_emprestado = nome, livro_emprestado = livro)
+		empr.save()
+		livro.emprestado = True
+		livro.save(update_fields = ['emprestado'])
+		return redirect('/emprestimos/')
+
+	return redirect('/usuario/login/?status=4')
+
+def finalizar_emprestimo(request, id):
+	usuario = request.user
+
+	if usuario.is_authenticated:
+		try:
+			empr = Emprestimos.objects.get(id = id, ativo = True)
+			livro = Livros.objects.get(id = empr.livro_emprestado.id, emprestado = True)
+		except:
+			return redirect('/emprestimos/?status=4')
+		else:
+			empr.ativo = False
+			empr.data_devolucao = date.today()
+			empr.save(update_fields = ['ativo', 'data_devolucao'])
+			livro.emprestado = False
+			livro.save(update_fields = ['emprestado'])
+			return redirect('/emprestimos/?status=5')
+
+
+	return redirect('/usuario/login/?status=4')

@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load livro_extras %}
+
+{% block 'titulo' %}Empréstimos{% endblock %}
+
+{% block 'conteudo' %}
+
+	{% if status == '1' %}
+		<br>
+		<div class="alert alert-warning" role="alert">
+			O tamanho máximo para o nome é de 255 caracteres
+		</div>
+	{% elif status == '2' %}
+		<br>
+		<div class="alert alert-warning" role="alert">
+			O nome precisa ser preenchido
+		</div>
+	{% elif status == '3' %}
+		<br>
+		<div class="alert alert-warning" role="alert">
+			Esse não é um livro válido
+		</div>
+	{% elif status == '4' %}
+		<br>
+		<div class="alert alert-warning" role="alert">
+			Empréstimo inválido
+		</div>
+	{% elif status == '5' %}
+		<br>
+		<div class="alert alert-primary" role="alert">
+			Empréstimo finalizado com sucesso
+		</div>
+	{% endif %}
+	
+	<div class="container">
+		<div class="row" style="margin-top: 10px">
+			<div class="col-md">
+				<table class="table table-striped">
+				  <thead>
+				    <tr>
+				      <th scope="col">Nome</th>
+				      <th scope="col">Livro emprestado</th>
+				      <th scope="col">Data do empréstimo</th>
+				      <th scope="col">Emprestado a</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				  	{% for empr in emprestimos %}
+				  		<tr>
+				  			<th scope="row">{{ empr.nome_emprestado }}</th>
+				  			<td><a href="{% url 'livro' empr.livro_emprestado.id %}" target="_blank">{{ empr.livro_emprestado }}</a></td>
+				  			<td>{{ empr.data_emprestimo }}</td>
+				  			<td>{{ empr.data_emprestimo|duracao_emprestimo_hoje }} dias</td>
+				  			<td><a href="{% url 'finalizar_emprestimo' empr.id %}" class="btn btn-outline-danger">Finalizar empréstimo</a></td>
+				  		</tr>
+				  	{% endfor %}
+				  </tbody>
+				</table>
+				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#novoEmprestimo">
+				  Novo empréstimo
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="novoEmprestimo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h1 class="modal-title fs-5" id="exampleModalLabel">Novo empréstimo</h1>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	        <form method="POST" action="{% url 'cadastrar_emprestimo' %}">
+	        	{% csrf_token %}
+	        	<div class="mb-3">
+	        		<label class="form-label">Nome: </label>
+	        		<input type="text" name="nome" required>
+	        	</div>
+
+	        	<div class="mb-3">
+	        		<label class="form-label">Livro</label>
+	        		<select class="form-select" aria-label="Default select example" name="livro">
+						{% for l in livros %}
+							<option value="{{ l.id }}">{{ l.nome }}</option>
+						{% endfor %}
+					</select>
+	        	</div>
+	        	<button type="submit" class="btn btn-primary">Salvar</button>
+	        </form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+
+{% endblock %}
